@@ -1,23 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import ImagrGrid from "./components/ImagrGrid";
+import Model from "./components/Model";
+import Title from "./components/Title";
+import UploadForm from "./components/UploadForm";
+
+import { useState } from 'react';
 
 function App() {
+  const [selectedImg, setSelectedImg] = useState(null);
+
+  const closeModel = (e) => {
+    if (e.target.classList.contains('backdrop')){
+      setSelectedImg(null);
+    }    
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Title />
+      <UploadForm />
+      <ImagrGrid setSelectedImg={setSelectedImg} />
+      {selectedImg && (
+        <Model onClick={closeModel} selectedImg={selectedImg} />
+      )
+      }
     </div>
   );
 }
